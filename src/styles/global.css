@@ -1,0 +1,19 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+    text-decoration: none;
+}
+
+html,
+body,
+#root,
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100vw;
+    min-height: 100vh;
+}
