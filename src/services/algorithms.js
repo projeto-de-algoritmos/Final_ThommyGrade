@@ -181,7 +181,7 @@ function isUnlocked(subject) {
 function buildItems() {
     const fs = require("fs");
 
-    var data = fs.readFileSync("grade.csv", "utf8");
+    var data = fs.readFileSync("../assets/classes.csv", "utf8");
     var file = data.split("\n");
 
     file.forEach(line => {
@@ -209,7 +209,7 @@ function buildNetwork() {
     const fs = require("fs");
     var a = 0;
 
-    var data = fs.readFileSync("label.csv", "utf8");
+    var data = fs.readFileSync("../assets/subjects.csv", "utf8");
     var file = data.split("\n");
 
     file.forEach(line => {

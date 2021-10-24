@@ -1,0 +1,42 @@
+CIC0004, Algoritmos e Programação de Computadores, FGA0147, FGA0158
+FGA0168, Desenho Industrial Assistido por Computador, FGA0173
+FGA0161, Engenharia e Ambiente
+FGA0163, Introdução à Engenharia
+MAT0025, Cálculo 1, FGA0157, FGA0124, MAT0026
+MAT0026, Cálculo 2, FGA0160
+IFD0171, Física 1
+IFD0173, Física 1 Experimental
+MAT0031, Introdução à Álgebra Linear, FGA0073, FGA0071
+FGA0157, Probabilidade e Estatística Aplicada à Engenharia
+FGA0160, Métodos Numéricos para Engenharia
+FGA0133, Engenharia Econômica, FGA0184
+FGA0164, Humanidades e Cidadania
+FGA0073, Teoria de Eletrônica Digital 1, FGA0142
+FGA0071, Prática de Eletrônica Digital 1, FGA0142
+FGA0158, Orientação a Objetos, FGA0150, FGA0138, FGA0210
+FGA0085, Matemática Discreta 1, FGA0108
+FGA0150, Projeto Integrador de Engenharia 1, FGA0250
+FGA0108, Matemática Discreta 2, FGA0137
+FGA0142, Fundamentos de Arquiteturas de Computadores, FGA0170
+FGA0147, Estruturas de Dados 1, FGA0030, FGA0124, FGA0003
+FGA0138, Métodos de Desenvolvimento de Software, FGA0172, FGA0238
+FGA0184, Gestão da Produção e Qualidade, FGA0278
+FGA0173, Interação Humano Computador, FGA0278
+FGA0172, Requisitos de Software, FGA0208
+FGA0137, Sistemas de Banco de Dados 1, FGA0060
+FGA0170, Fundamentos de Sistemas Operacionais, FGA0211, FGA0109
+FGA0003, Compiladores 1, FGA0210
+FGA0030, Estruturas de Dados 2, FGA0244
+FGA0124, Projeto de Algoritmos
+FGA0060, Sistemas de Banco de Dados 2
+FGA0211, Fundamentos de Redes de Computadores, FGA0244
+FGA0208, Arquitetura e Desenho de Software, FGA0210, FGA0242
+FGA0238, Testes de Software, FGA0240, FGA0242
+FGA0278, Qualidade de Software 1
+FGA0242, Técnicas de Programação em Plataformas Emergentes, FGA0206
+FGA0210, Paradigmas de Programação
+FGA0109, Fundamentos de Sistemas Embarcados
+FGA0244, Programação para Sistemas Paralelos e Distribuídos
+FGA0206, Engenharia de Produto de Software, FGA0250
+FGA0240, Gerência de Configuração e Evolução de Software
+FGA0250, Projeto Integrador de Engenharia 2
