@@ -4,6 +4,7 @@
     box-sizing: border-box;
     outline: none;
     text-decoration: none;
+    font-family: 'Roboto', sans-serif;
 }
 
 html,
@@ -16,4 +17,5 @@ body,
 
     width: 100vw;
     min-height: 100vh;
+    background-color: #eaeaea;
 }

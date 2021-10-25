@@ -1,0 +1,21 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.home-container h1,
+.home-container p {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.home-container p {
+    width: 90%;
+    max-width: 500px;
+    font-size: 1.2rem;
+}
