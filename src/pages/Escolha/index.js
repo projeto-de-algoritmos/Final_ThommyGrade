@@ -16,7 +16,7 @@ export function Escolha(props) {
   const [network, setNet] = useState({});
   const options = props.location.state.options;
   const [selectedSubjects, setSelectedSubjects] = useState(options);
-  const [credits, setCredits] = useState(2);
+  const [credits, setCredits] = useState(32);
 
   function handleChange(isChecked, code) {
     if (isChecked) {
@@ -65,6 +65,7 @@ export function Escolha(props) {
         InputLabelProps={{
           shrink: true,
         }}
+        value={credits}
         inputProps={{ min: 2, max: 32 }}
         onChange={({ target }) => setCredits(target.value)}
       />

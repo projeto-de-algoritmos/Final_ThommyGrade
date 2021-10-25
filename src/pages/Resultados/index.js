@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import Lottie from "react-lottie";
 
 import { CustomTable } from "../../components/Table";
+
+import animation from "../../assets/lf30_editor_mjtriweb.json";
 
 import {
   getResults,
   buildItems,
   buildNetwork,
-  timeToIndex,
-  getTimetables
+  getTimetables,
 } from "../../services/algorithms";
 
 import "./styles.css";
@@ -57,40 +59,51 @@ export function Resultados(props) {
   return (
     <div className="resultados-container">
       <h1>Resultados</h1>
-      {resultRender.map((item) => {
-        const [rows, classes] = getTimetables(items, item.results, item.subjects);
-        return (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
+      <p>Você queria grade? Então Thommy</p>
+      {resultRender.length ? (
+        <>
+          {resultRender.map((item) => {
+            const [rows, classes] = getTimetables(
+              items,
+              item.results,
+              item.subjects
+            );
+            return (
+              <div className="result-item">
+                <div className="subjects">
+                  <b style={{ marginBottom: "1rem" }}>
+                    Matérias Presentes Nestas Grade:
+                  </b>
+                  {/* Itera dentro do Subjects de cada item do results para mostrar as matérias presentes na grade */}
+                  {item.subjects.map((subject) => {
+                    return (
+                      <p
+                        style={{ textAlign: "center", marginBottom: "0.75rem" }}
+                      >
+                        {`${subject} - ${network[subject].name}`}
+                      </p>
+                    );
+                  })}
+                </div>
+                <CustomTable rows={rows} classes={classes} />
+              </div>
+            );
+          })}
+        </>
+      ) : (
+        <div className="animation">
+          <Lottie
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: animation,
             }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                marginRight: "1.25rem",
-              }}
-            >
-              <b style={{ marginBottom: "1rem" }}>
-                Matérias Presentes Nestas Grade:
-              </b>
-              {/* Itera dentro do Subjects de cada item do results para mostrar as matérias presentes na grade */}
-              {item.subjects.map((subject) => {
-                return (
-                  <p style={{ textAlign: "center", marginBottom: "0.75rem" }}>
-                    {`${subject} - ${network[subject].name}`}
-                  </p>
-                );
-              })}
-            </div>
-            <CustomTable rows = {rows} classes = {classes}/>
-          </div>
-        );
-      })}
+            height={200}
+            width={200}
+            loop
+          />
+        </div>
+      )}
     </div>
   );
 }

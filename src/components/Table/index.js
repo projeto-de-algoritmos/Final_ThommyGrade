@@ -80,17 +80,26 @@ function TablePaginationActions(props) {
   );
 }
 
+function CustomTableCell({ tooltip, content }) {
+  const inner = <TableCell align="center">{content}</TableCell>;
+
+  if (tooltip !== "") {
+    return (
+      <Tooltip title={`Turma(s) ${tooltip}`} arrow>
+        {inner}
+      </Tooltip>
+    );
+  }
+
+  return inner;
+}
+
 TablePaginationActions.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
 };
-
-function createData(mon, tue, wed, thu, fri) {
-  return { mon, tue, wed, thu, fri };
-}
-
 
 export function CustomTable(props) {
   const rows = props.rows;
@@ -115,13 +124,17 @@ export function CustomTable(props) {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <colgroup>
-          <col width="20%" />
-          <col width="20%" />
-          <col width="20%" />
-          <col width="20%" />
-          <col width="20%" />
+          <col width="16.66%" />
+          <col width="16.66%" />
+          <col width="16.66%" />
+          <col width="16.66%" />
+          <col width="16.66%" />
+          <col width="16.66%" />
         </colgroup>
         <TableHead>
+          <TableCell component="th" scope="row" align="center">
+            Hora/Dia
+          </TableCell>
           <TableCell component="th" scope="row" align="center">
             SEG
           </TableCell>
@@ -142,36 +155,57 @@ export function CustomTable(props) {
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
-          ).map((row, i) => (
-            <TableRow key={"a"}>
-              <Tooltip title={`${classes[page][row[0]]}`} arrow>
+          ).map((row, i) => {
+            let time = "";
+
+            switch (i) {
+              case 0:
+                time = "08h";
+                break;
+              case 1:
+                time = "10h";
+
+                break;
+              case 2:
+                time = "14h";
+
+                break;
+              case 3:
+                time = "16h";
+                break;
+              default:
+                time = "XXh";
+                break;
+            }
+
+            return (
+              <TableRow key={"a"}>
                 <TableCell align="center">
-                  {row[0]}
+                  <b>{time}</b>
                 </TableCell>
-              </Tooltip>
-              <Tooltip title={`${classes[page][row[1]]}`} arrow>
-                <TableCell align="center">
-                  {row[1]}
-                </TableCell>
-              </Tooltip>
-              <Tooltip title={`${classes[page][row[2]]}`} arrow>
-                <TableCell align="center">
-                  {row[2]}
-                </TableCell>
-              </Tooltip>
-              <Tooltip title={`${classes[page][row[3]]}`} arrow>
-                <TableCell align="center">
-                  {row[3]}
-                </TableCell>
-              </Tooltip>
-              <Tooltip title={`${classes[page][row[4]]}`} arrow>
-                <TableCell align="center">
-                  {row[4]}
-                </TableCell>
-              </Tooltip>
-            </TableRow>
-          ))
-          }
+                <CustomTableCell
+                  tooltip={classes[page][row[0]]}
+                  content={row[0]}
+                />
+                <CustomTableCell
+                  tooltip={classes[page][row[1]]}
+                  content={row[1]}
+                />
+                <CustomTableCell
+                  tooltip={classes[page][row[2]]}
+                  content={row[2]}
+                />
+                <CustomTableCell
+                  tooltip={classes[page][row[3]]}
+                  content={row[3]}
+                />
+                <CustomTableCell
+                  tooltip={classes[page][row[4]]}
+                  content={row[4]}
+                />
+              </TableRow>
+            );
+          })}
 
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
@@ -182,9 +216,11 @@ export function CustomTable(props) {
         <TableFooter>
           <TableRow>
             <TablePagination
-              labelDisplayedRows = {({from, to, count}) => {return `${to/4} of ${count/4}`;}}
+              labelDisplayedRows={({ from, to, count }) => {
+                return `${to / 4} of ${count / 4}`;
+              }}
               rowsPerPageOptions={[]}
-              colSpan={5}
+              colSpan={6}
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}

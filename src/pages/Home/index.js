@@ -4,20 +4,20 @@ import Button from "@mui/material/Button";
 import "./styles.css";
 
 export function Home() {
-    const history = useHistory();
+  const history = useHistory();
 
   return (
     <div className="home-container">
-      <h1>Home Page</h1>
+      <h1>Thommy Grade</h1>
       <p>
-        Bem vindo ao <b>gerador de grade ideal</b>, nossa plataforma tem como intuito
-        facilitar o seu processo de solicitação de matérias no início do
-        semestre calculando o melhor encaixe de disciplinas disponíveis para
-        você.
+        Bem vindo ao <b>Thommy Grade</b>, seu gerador de grade ideal, nossa
+        aplicação tem como intuito facilitar o seu processo de solicitação de
+        matérias no início do semestre calculando o melhor encaixe de
+        disciplinas disponíveis para você.
         <br />
         <br />
-        Basta nos informar a quantidade de créditos que deseja cursar este
-        semestre e quais matérias você já cursou do seu curso.
+        Basta nos informar o máximo de créditos e quais matérias você tem
+        interesse em cursar.
       </p>
       <Button variant="contained" onClick={() => history.push("/materias")}>
         INICIAR
