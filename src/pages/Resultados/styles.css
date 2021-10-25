@@ -1,0 +1,10 @@
+.resultados-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 0;
+}
+
+.resultados-container h1 {
+    margin-bottom: 2rem;
+}

@@ -107,7 +107,7 @@ const shift = {
 
 // seg. ter. qua. qui. sex.
 // 1111 1111 1111 1111 1111
-function timeToIndex(time) {
+export function timeToIndex(time) {
     var index = [];
     const pattern = /(?<day>[0-9]+)(?<shift>[MTN])(?<hour>[0-9]+)/;
 
@@ -196,8 +196,9 @@ export function knapsack(items) {
 }
 
 export function getResults(combinations, items, credits) {
-    var credits = getClosestWeight(credits);
     var matrix = knapsack(items);
+
+    var credits = getClosestWeight(credits, matrix);
     var index = matrix.length - 1;
 
     for (var weight = 2**20 - 1; weight > 0; weight--) {
@@ -280,15 +281,15 @@ export async function buildItems(items, options) {
     return items;
 }
 
-function getWeight(credits) {
-    var index = matrix.length - 1;
+// function getWeight(credits) {
+//     var index = matrix.length - 1;
 
-    for (var weight = 2**20 - 1; matrix[index][weight] > credits; weight--);
+//     for (var weight = 2**20 - 1; matrix[index][weight] > credits; weight--);
 
-    return weight;
-}
+//     return weight;
+// }
 
-function getClosestWeight(credits) {
+function getClosestWeight(credits, matrix) {
     var index = matrix.length - 1;
     var perfect = credits;
     for (var weight = 2**20 - 1; weight > 0; weight--) {
