@@ -100,194 +100,203 @@ export function deselect(subject, selected, options, network) {
   };
 }
 
-// const shift = {
-//     'M': 0,
-//     'T': 2,
-// }
+const shift = {
+    'M': 0,
+    'T': 2,
+}
 
-// // seg. ter. qua. qui. sex.
-// // 1111 1111 1111 1111 1111
-// function timeToIndex(time) {
-//     var index = [];
-//     const pattern = /(?<day>[0-9]+)(?<shift>[MTN])(?<hour>[0-9]+)/;
+// seg. ter. qua. qui. sex.
+// 1111 1111 1111 1111 1111
+function timeToIndex(time) {
+    var index = [];
+    const pattern = /(?<day>[0-9]+)(?<shift>[MTN])(?<hour>[0-9]+)/;
 
-//     time = time.split(" ");
-//     for (var t in time) {
-//         let match = time[t].match(pattern);
+    time = time.split(" ");
+    for (var t in time) {
+        let match = time[t].match(pattern);
 
-//         let day = match.groups.day;
-//         for (var d in day) {
+        let day = match.groups.day;
+        for (var d in day) {
 
-//             let hour = match.groups.hour;
-//             for (var h = 0; h < hour.length; h+=2) {
-//                 var i = (parseInt(day[d]) - 2) * 4 + shift[match.groups.shift];
+            let hour = match.groups.hour;
+            for (var h = 0; h < hour.length; h+=2) {
+                var i = (parseInt(day[d]) - 2) * 4 + shift[match.groups.shift];
 
-//                 if (match.groups.shift == 'T')
-//                     i += (parseInt(hour[h]) - 2) / 2;
-//                 else
-//                     i += (parseInt(hour[h]) - 1) / 2;
+                if (match.groups.shift == 'T')
+                    i += (parseInt(hour[h]) - 2) / 2;
+                else
+                    i += (parseInt(hour[h]) - 1) / 2;
 
-//                 index.push(i);
-//             }
-//         }
-//     }
+                index.push(i);
+            }
+        }
+    }
 
-//     return index;
-// }
+    return index;
+}
 
-// function initMatrix(rows, columns) {
-//     var matrix = Array(rows);
+function initMatrix(rows, columns) {
+    var matrix = Array(rows);
 
-//     for (var i = 0; i < matrix.length; i++) {
-//         matrix[i] = Array(columns).fill(0);
-//     }
+    for (var i = 0; i < matrix.length; i++) {
+        matrix[i] = Array(columns).fill(0);
+    }
 
-//     return matrix;
-// }
+    return matrix;
+}
 
-// // 1011 1111 1111 1111 1011
-// // 1110 1111 1110 1111 1111
-// function isCompatible(weight1, weight2) {
-//     const mask = (1 << 20) - 1;
-//     return !((weight1 | weight2) ^ mask);
-// }
+// 1011 1111 1111 1111 1011
+// 1110 1111 1110 1111 1111
+function isCompatible(weight1, weight2) {
+    const mask = (1 << 20) - 1;
+    return !((weight1 | weight2) ^ mask);
+}
 
-// function timeToInt(time) {
-//     const mask = (1 << 20) - 1;
-//     var bit = "0".padStart(20, '0');
+function timeToInt(time) {
+    const mask = (1 << 20) - 1;
+    var bit = "0".padStart(20, '0');
 
-//     bit = bit.split("");
-//     timeToIndex(time).forEach(i => {bit[i] = '1'; });
-//     bit = bit.join("");
+    bit = bit.split("");
+    timeToIndex(time).forEach(i => {bit[i] = '1'; });
+    bit = bit.join("");
 
-//     bit = parseInt(bit, 2);
+    bit = parseInt(bit, 2);
 
-//     return ~bit & mask;
-// }
+    return ~bit & mask;
+}
 
-// function knapsack() {
-//     var matrix = initMatrix(items.length, 2**20);
-//     var verified = [];
+export function knapsack(items) {
+    var matrix = initMatrix(items.length, 2**20);
+    var verified = [];
 
-//     for (var index = 1; index < matrix.length; index++) {
-//         var i = index;
-//         if (verified.includes(items[index].subject)) {
-//             while (items[i - 1].subject == items[index].subject)
-//                 i -= 1;
-//         }
-//         else {
-//             verified.push(items[index].subject);
-//         }
+    for (var index = 1; index < matrix.length; index++) {
+        var i = index;
+        if (verified.includes(items[index].subject)) {
+            while (items[i - 1].subject == items[index].subject)
+                i -= 1;
+        }
+        else {
+            verified.push(items[index].subject);
+        }
 
-//         for (var weight = 1; weight < matrix[0].length; weight++) {
-//             if (!isCompatible(items[index].weight, weight)) {
-//                 matrix[index][weight] = matrix[index - 1][weight];
-//             }
-//             else {
-//                 matrix[index][weight] = Math.max(
-//                     items[index].value + matrix[i - 1][weight & items[index].weight],
-//                     matrix[index - 1][weight]
-//                 );
-//             }
-//         }
-//     }
+        for (var weight = 1; weight < matrix[0].length; weight++) {
+            if (!isCompatible(items[index].weight, weight)) {
+                matrix[index][weight] = matrix[index - 1][weight];
+            }
+            else {
+                matrix[index][weight] = Math.max(
+                    items[index].value + matrix[i - 1][weight & items[index].weight],
+                    matrix[index - 1][weight]
+                );
+            }
+        }
+    }
 
-//     return matrix;
-// }
+    return matrix;
+}
 
-// function allCombinations(matrix, solution, index, weight) {
-//     while (index >= 1) {
-//         var i = index;
-//         while (items[i - 1].subject == items[index].subject) {
-//             i -= 1;
-//         }
+export function getResults(combinations, items, credits) {
+    var credits = getClosestWeight(credits);
+    var matrix = knapsack(items);
+    var index = matrix.length - 1;
 
-//         if (items[index].value + matrix[i - 1][weight & items[index].weight] === matrix[index - 1][weight]) {
-//             if (isCompatible(items[index].weight, weight)) {
-//                 allCombinations(matrix, solution.concat([index]), i - 1, weight & items[index].weight);
-//             }
-//         }
+    for (var weight = 2**20 - 1; weight > 0; weight--) {
+        if (matrix[index][weight] === credits) {
+            combinations = allCombinations(combinations, items, matrix, [], index, weight);
+        }
+    }
 
-//         if (matrix[index][weight] != matrix[index - 1][weight]) {
-//             solution.push(index);
-//             weight = weight & items[index].weight;
-//             index = i;
-//         }
-//         index -= 1;
-//     }
+    return combinations;
+}
 
-//     var subjects = "";
-//     var grid = "";
 
-//     solution.forEach(subject => {
-//         subjects = subjects.concat(items[subject].subject);
-//         grid = grid.concat(items[subject].weight.toString(2).padStart(20, '0'));
-//     });
+export function allCombinations(combinations, items, matrix, solution, index, weight) {
+    while (index >= 1) {
+        var i = index;
+        while (items[i - 1].subject == items[index].subject) {
+            i -= 1;
+        }
 
-//     if (combinations[subjects] === undefined) combinations[subjects] = {};
-//     if (combinations[subjects][grid] === undefined) combinations[subjects][grid] = [];
+        if (items[index].value + matrix[i - 1][weight & items[index].weight] === matrix[index - 1][weight]) {
+            if (isCompatible(items[index].weight, weight)) {
+                combinations = allCombinations(combinations, items, matrix, solution.concat([index]), i - 1, weight & items[index].weight);
+            }
+        }
 
-//     if (!combinations[subjects][grid].includes(solution))
-//         combinations[subjects][grid].push(solution);
-// }
+        if (matrix[index][weight] != matrix[index - 1][weight]) {
+            solution.push(index);
+            weight = weight & items[index].weight;
+            index = i;
+        }
+        index -= 1;
+    }
 
-// function buildItems() {
-//     const fs = require("fs");
+    var subjects = "";
+    var grid = "";
 
-//     var data = fs.readFileSync("../assets/classes.csv", "utf8");
-//     var file = data.split("\n");
+    solution.forEach(subject => {
+        subjects = subjects.concat(items[subject].subject);
+        grid = grid.concat(items[subject].weight.toString(2).padStart(20, '0'));
+    });
 
-//     file.forEach(line => {
-//         if (line == "") return;
+    if (combinations[subjects] === undefined) combinations[subjects] = {};
+    if (combinations[subjects][grid] === undefined) combinations[subjects][grid] = [];
 
-//         line = line.split(", ");
+    if (!combinations[subjects][grid].includes(solution))
+        combinations[subjects][grid].push(solution);
 
-//         if (options.includes(line[0])) {
-//             items.push({
-//                 subject: line[0],
-//                 class: line[1],
-//                 weight: timeToInt(line[2]),
-//                 value: timeToIndex(line[2]).length * 2,
-//                 time: line[2]
-//             });
-//         }
-//     });
+    return combinations;
+}
 
-//     items = items.sort((a, b) => {
-//         return a.value - b.value;
-//     });
-// }
+export async function buildItems(items, options) {
+    items = [{ subject: "", class: "", weight: 0, value: 0 }]; 
 
-// function getWeight(credits) {
-//     var index = matrix.length - 1;
+    var data = await fetch("/classes.csv")
+        .then((res) => res.text())
+        .then((text) => text);
 
-//     for (var weight = 2**20 - 1; matrix[index][weight] > credits; weight--);
+    var file = data.split("\n");
 
-//     return weight;
-// }
+    file.forEach(line => {
+        if (line == "") return;
 
-// function initItems() {
-//   return [{ subject: "", class: "", weight: 0, value: 0 }];
-// }
+        line = line.split(", ");
 
-// function getClosestWeight(credits) {
-//     var index = matrix.length - 1;
-//     var perfect = credits;
-//     for (var weight = 2**20 - 1; weight > 0; weight--) {
-//         if (credits - matrix[index][weight] < 0)
-//             continue;
+        if (options.includes(line[0])) {
+            items.push({
+                subject: line[0],
+                class: line[1],
+                weight: timeToInt(line[2]),
+                value: timeToIndex(line[2]).length * 2,
+                time: line[2]
+            });
+        }
+    });
 
-//         perfect = Math.min(perfect, credits - matrix[index][weight]);
-//     }
+    items = items.sort((a, b) => {
+        return a.value - b.value;
+    });
 
-//     return credits - perfect;
-// }
+    return items;
+}
 
-// var network = {}
-// var items = initItems();
-// buildNetwork();
-// var options = initOptions();
-// var selected = []
-// var combinations = []
-// buildItems();
-// var matrix = knapsack();
+function getWeight(credits) {
+    var index = matrix.length - 1;
+
+    for (var weight = 2**20 - 1; matrix[index][weight] > credits; weight--);
+
+    return weight;
+}
+
+function getClosestWeight(credits) {
+    var index = matrix.length - 1;
+    var perfect = credits;
+    for (var weight = 2**20 - 1; weight > 0; weight--) {
+        if (credits - matrix[index][weight] < 0)
+            continue;
+
+        perfect = Math.min(perfect, credits - matrix[index][weight]);
+    }
+
+    return credits - perfect;
+}
