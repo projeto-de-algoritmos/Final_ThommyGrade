@@ -302,9 +302,9 @@ function getClosestWeight(credits, matrix) {
     return credits - perfect;
 }
 
-export function getTimetables(combinations, subjects) {
+export function getTimetables(combination, subjects) {
     var timetable = [];
-    for (var variety in combinations[subjects.join("")]) {
+    for (var variety in combination) {
         var g = Array(20).fill("-------");
         var s = variety.match(/.{1,20}/g);
 

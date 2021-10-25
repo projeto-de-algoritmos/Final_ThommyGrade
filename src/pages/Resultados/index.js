@@ -6,7 +6,8 @@ import {
   getResults,
   buildItems,
   buildNetwork,
-  timeToIndex
+  timeToIndex,
+  getTimetables
 } from "../../services/algorithms";
 
 import "./styles.css";
@@ -85,7 +86,7 @@ export function Resultados(props) {
                 );
               })}
             </div>
-            <CustomTable />
+            <CustomTable rows = {getTimetables(item.results, item.subjects)}/>
           </div>
         );
       })}

@@ -90,23 +90,9 @@ function createData(mon, tue, wed, thu, fri) {
   return { mon, tue, wed, thu, fri };
 }
 
-const rows = [
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-  createData("FGA", "FGA", "FGA", "FGA", "FGA"),
-].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
-export function CustomTable() {
+export function CustomTable(rows) {
+  rows = rows.rows;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
@@ -155,21 +141,21 @@ export function CustomTable() {
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row) => (
-            <TableRow key={row.mon}>
+            <TableRow key={"a"}>
               <TableCell align="center">
-                {row.mon}
+                {row[0]}
               </TableCell>
               <TableCell align="center">
-                {row.tue}
+                {row[1]}
               </TableCell>
               <TableCell align="center">
-                {row.wed}
+                {row[2]}
               </TableCell>
               <TableCell align="center">
-                {row.thu}
+                {row[3]}
               </TableCell>
               <TableCell align="center">
-                {row.fri}
+                {row[4]}
               </TableCell>
             </TableRow>
           ))}
@@ -183,6 +169,7 @@ export function CustomTable() {
         <TableFooter>
           <TableRow>
             <TablePagination
+              labelDisplayedRows = {({from, to, count}) => {return `${to/4} of ${count/4}`;}}
               rowsPerPageOptions={[]}
               colSpan={5}
               count={rows.length}
