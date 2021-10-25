@@ -1,16 +1,23 @@
-# Projeto Final = Dupla 3
+# Projeto Final - Thommy Grade
 
 **Conteúdo da Disciplina**: Projeto Final<br>
 
 ## Alunos
-|Matrícula | Aluno |
-| -- | -- |
+| Matrícula | Aluno |
+| :-: | :-: |
 | 18/0030345  |  Arthur Sena |
 | 18/0033646  |  João Luis Baraky |
 
 ## Sobre 
+O Thommy Grade é um gerador de grades ideais para alunos da Engenharia de Software da FGA. A partir das matérias nas quais o usuário possui interesse e no máximo de créditos que ele deseja cursar, apresentamos todas as grades ótimas possíveis.
+
+Você quer grade? Então thommy!!!!
 
 ## Screenshots
+
+<img src="./src/assets/print1.png" />
+<img src="./src/assets/print2.png" />
+<img src="./src/assets/print3.png" />
 
 ## Instalação 
 **Linguagem**: JavaScript<br>
@@ -21,9 +28,10 @@
 ```powershell
 # Clone o repositório
 
+git clone https://github.com/projeto-de-algoritmos/Final_ThommyGrade
 
 # Entre no diretório e instale as dependencias
-cd PD_GetRight && npm install
+cd Final_ThommyGrade && npm install
 
 # Inicie o projeto
 npm start
