@@ -58,6 +58,8 @@ export function Resultados(props) {
     <div className="resultados-container">
       <h1>Resultados</h1>
       {resultRender.map((item) => {
+        const [rows, classes] = getTimetables(items, item.results, item.subjects);
+        console.log(classes);
         return (
           <div
             style={{
@@ -86,7 +88,7 @@ export function Resultados(props) {
                 );
               })}
             </div>
-            <CustomTable rows = {getTimetables(item.results, item.subjects)}/>
+            <CustomTable rows = {rows} classes = {classes}/>
           </div>
         );
       })}

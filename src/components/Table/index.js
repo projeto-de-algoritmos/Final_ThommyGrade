@@ -16,6 +16,7 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
+import Tooltip from "@mui/material/Tooltip";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -91,8 +92,9 @@ function createData(mon, tue, wed, thu, fri) {
 }
 
 
-export function CustomTable(rows) {
-  rows = rows.rows;
+export function CustomTable(props) {
+  const rows = props.rows;
+  const classes = props.classes;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
@@ -140,23 +142,33 @@ export function CustomTable(rows) {
           {(rowsPerPage > 0
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
-          ).map((row) => (
+          ).map((row, i) => (
             <TableRow key={"a"}>
-              <TableCell align="center">
-                {row[0]}
-              </TableCell>
-              <TableCell align="center">
-                {row[1]}
-              </TableCell>
-              <TableCell align="center">
-                {row[2]}
-              </TableCell>
-              <TableCell align="center">
-                {row[3]}
-              </TableCell>
-              <TableCell align="center">
-                {row[4]}
-              </TableCell>
+              <Tooltip title={`${classes[Math.floor(i/4)][row[0]]}`} arrow>
+                <TableCell align="center">
+                  {row[0]}
+                </TableCell>
+              </Tooltip>
+              <Tooltip title={`${classes[Math.floor(i/4)][row[1]]}`} arrow>
+                <TableCell align="center">
+                  {row[1]}
+                </TableCell>
+              </Tooltip>
+              <Tooltip title={`${classes[Math.floor(i/4)][row[2]]}`} arrow>
+                <TableCell align="center">
+                  {row[2]}
+                </TableCell>
+              </Tooltip>
+              <Tooltip title={`${classes[Math.floor(i/4)][row[3]]}`} arrow>
+                <TableCell align="center">
+                  {row[3]}
+                </TableCell>
+              </Tooltip>
+              <Tooltip title={`${classes[Math.floor(i/4)][row[4]]}`} arrow>
+                <TableCell align="center">
+                  {row[4]}
+                </TableCell>
+              </Tooltip>
             </TableRow>
           ))}
 

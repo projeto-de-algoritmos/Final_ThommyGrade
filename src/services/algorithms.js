@@ -302,8 +302,9 @@ function getClosestWeight(credits, matrix) {
     return credits - perfect;
 }
 
-export function getTimetables(combination, subjects) {
+export function getTimetables(items, combination, subjects) {
     var timetable = [];
+    var classes = [];
     for (var variety in combination) {
         var g = Array(20).fill("-------");
         var s = variety.match(/.{1,20}/g);
@@ -315,10 +316,27 @@ export function getTimetables(combination, subjects) {
                     g[index] = subjects[i];
             });
         });
+        classes.push(getClasses(items, combination[variety]));
         timetable = timetable.concat(listToMatrix(g));
     }
 
-    return timetable;
+    return [timetable, classes];
+}
+
+function getClasses(items, variety) {
+    var classes = {"-------": ""};
+
+    variety.forEach(solution => {
+        solution.forEach(i => {
+            if (classes[items[i].subject] === undefined)
+                classes[items[i].subject] = [];
+
+            if (!classes[items[i].subject].includes(items[i].class))
+                classes[items[i].subject].push(items[i].class);
+        });
+    });
+
+    return classes;
 }
 
 function listToMatrix(list) {
