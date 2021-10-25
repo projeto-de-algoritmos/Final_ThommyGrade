@@ -144,33 +144,34 @@ export function CustomTable(props) {
             : rows
           ).map((row, i) => (
             <TableRow key={"a"}>
-              <Tooltip title={`${classes[Math.floor(i/4)][row[0]]}`} arrow>
+              <Tooltip title={`${classes[page][row[0]]}`} arrow>
                 <TableCell align="center">
                   {row[0]}
                 </TableCell>
               </Tooltip>
-              <Tooltip title={`${classes[Math.floor(i/4)][row[1]]}`} arrow>
+              <Tooltip title={`${classes[page][row[1]]}`} arrow>
                 <TableCell align="center">
                   {row[1]}
                 </TableCell>
               </Tooltip>
-              <Tooltip title={`${classes[Math.floor(i/4)][row[2]]}`} arrow>
+              <Tooltip title={`${classes[page][row[2]]}`} arrow>
                 <TableCell align="center">
                   {row[2]}
                 </TableCell>
               </Tooltip>
-              <Tooltip title={`${classes[Math.floor(i/4)][row[3]]}`} arrow>
+              <Tooltip title={`${classes[page][row[3]]}`} arrow>
                 <TableCell align="center">
                   {row[3]}
                 </TableCell>
               </Tooltip>
-              <Tooltip title={`${classes[Math.floor(i/4)][row[4]]}`} arrow>
+              <Tooltip title={`${classes[page][row[4]]}`} arrow>
                 <TableCell align="center">
                   {row[4]}
                 </TableCell>
               </Tooltip>
             </TableRow>
-          ))}
+          ))
+          }
 
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>

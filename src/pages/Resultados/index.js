@@ -59,7 +59,6 @@ export function Resultados(props) {
       <h1>Resultados</h1>
       {resultRender.map((item) => {
         const [rows, classes] = getTimetables(items, item.results, item.subjects);
-        console.log(classes);
         return (
           <div
             style={{
@@ -83,7 +82,7 @@ export function Resultados(props) {
               {item.subjects.map((subject) => {
                 return (
                   <p style={{ textAlign: "center", marginBottom: "0.75rem" }}>
-                    {network[subject].name}
+                    {`${subject} - ${network[subject].name}`}
                   </p>
                 );
               })}
